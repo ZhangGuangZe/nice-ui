@@ -19,6 +19,10 @@ export const buttonProps = {
   size: {
     type: String as PropType<ButtonSize>,
     default: 'medium'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 } as const
 

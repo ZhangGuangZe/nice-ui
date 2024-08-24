@@ -11,6 +11,7 @@ import NiButton from './components/button/src/button.tsx'
   <ni-button type="primary" size="small">小按钮</ni-button>
   <ni-button type="primary">中按钮</ni-button>
   <ni-button type="primary" size="large">大按钮</ni-button>
+  <ni-button type="primary" disabled>禁用按钮</ni-button>
   <!-- <Test /> -->
 </template>
 
