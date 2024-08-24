@@ -8,7 +8,9 @@ import NiButton from './components/button/src/button.tsx'
   <HelloWorld msg="Vite + Vue" />
 
   <NiButton>button</NiButton>
-  <ni-button type="primary">primary</ni-button>
+  <ni-button type="primary" size="small">小按钮</ni-button>
+  <ni-button type="primary">中按钮</ni-button>
+  <ni-button type="primary" size="large">大按钮</ni-button>
   <!-- <Test /> -->
 </template>
 

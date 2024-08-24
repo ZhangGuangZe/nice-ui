@@ -9,10 +9,16 @@ export type ButtonType =
   | 'info'
   | 'text'
 
+export type ButtonSize = 'small' | 'medium' | 'large'
+
 export const buttonProps = {
   type: {
     type: String as PropType<ButtonType>,
     default: 'default'
+  },
+  size: {
+    type: String as PropType<ButtonSize>,
+    default: 'medium'
   }
 } as const
 
