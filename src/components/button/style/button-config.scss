@@ -1,0 +1,72 @@
+// 所有不同type按钮自定义样式
+@import '../../../style/variable.scss';
+
+// 按钮类型的配置
+$type: (
+  primary: (
+    color: $ni-light-text,
+    background-color: $ni-primary
+  ),
+  secondary: (
+    color: $ni-text,
+    background-color: $ni-block,
+    border-color: $ni-line
+  ),
+  text: (
+    padding: 0,
+    color: $ni-brand-active
+  )
+);
+
+// 伪类的配置
+$pseudo: (
+  primary: (
+    hover: (
+      background-color: $ni-primary-hover
+    ),
+    focus: (
+      background-color: $ni-primary-hover
+    ),
+    active: (
+      background-color: $ni-primary-active
+    ),
+    disabled: (
+      color: $ni-light-text,
+      background-color: $ni-primary-disabled,
+      border: none
+    )
+  ),
+  secondary: (
+    hover: (
+      border-color: $ni-form-control-line-active,
+      color: $ni-brand-active
+    ),
+    focus: (
+      border-color: $ni-form-control-line-active,
+      color: $ni-brand-active
+    ),
+    active: (
+      border-color: $ni-form-control-line-active,
+      color: $ni-brand-active
+    ),
+    disabled: (
+      color: $ni-disabled-text,
+      background-color: $ni-disabled-bg,
+      border: 1px solid $ni-disabled-line
+    )
+  ),
+  text: (
+    hover: (
+      color: $ni-brand-active-focus
+    ),
+    focus: (
+      color: $ni-brand-active-focus
+    ),
+    active: (
+      color: $ni-brand-active-focus
+    ),
+    disabled: (
+      color: $ni-disabled-text
+    )
+  )
+);
