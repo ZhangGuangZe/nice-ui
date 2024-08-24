@@ -20,7 +20,11 @@
 
   // 禁用状态
   &[disabled] {
-    @apply cursor-not-allowed
+    @apply cursor-not-allowed;
+  }
+
+  &.ni-button--block {
+    @apply block w-full;
   }
 }
 
