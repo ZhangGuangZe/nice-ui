@@ -1,7 +1,8 @@
 {
   "name": "nice-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -11,10 +12,12 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "test": "vitest"
+    "test": "vitest",
+    "build:lib": "node ./scripts/build.js"
   },
   "dependencies": {
     "entities": "^5.0.0",
+    "fs-extra": "^11.2.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 // import Test from './components/Test.tsx'
-import NiButton from './components/button/src/button.tsx'
+// import NiButton from './components/button/src/button.tsx'
 </script>
 
 <template>
