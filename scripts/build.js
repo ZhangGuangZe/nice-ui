@@ -19,6 +19,8 @@ const baseConfig = defineConfig({
 const entryFile = path.resolve(__dirname, './entry.ts')
 // 输出目录
 const outputDir = path.resolve(__dirname, '../build')
+// 组件目录
+const componentsDir = path.resolve(__dirname, '../src/components')
 
 // rollup 配置
 const rollupOptions = {
@@ -42,12 +44,14 @@ const createPackageJson = name => {
   "license": "ISC"
 }`
   if (name) {
+    // 创建单个组件的package.json
     fs.outputFile(
       path.resolve(outputDir, `${name}/package.json`),
       fileStr,
       'utf-8'
     )
   } else {
+    // 全量
     fs.outputFile(path.resolve(outputDir, 'package.json'), fileStr, 'utf-8')
   }
 }
@@ -70,9 +74,38 @@ const buildAll = async () => {
   createPackageJson()
 }
 
+// 单个构建
+const buildSingle = async name => {
+  await build({
+    ...baseConfig,
+    build: {
+      rollupOptions,
+      lib: {
+        entry: path.resolve(componentsDir, name),
+        name: 'index',
+        fileName: 'index',
+        formats: ['es', 'umd']
+      },
+      outDir: path.resolve(outputDir, name)
+    }
+  })
+  createPackageJson(name)
+}
+
 // 执行输出
 const buildLib = async () => {
+  // 全量打包
   await buildAll()
+
+  // 按需打包
+  fs.readdirSync(componentsDir)
+    .filter(name => {
+      // 寻找组件中的 index.ts 文件
+      const componentDir = path.resolve(componentsDir, name)
+      const isDir = fs.lstatSync(componentDir).isDirectory()
+      return isDir && fs.readdirSync(componentDir).includes('index.ts')
+    })
+    .forEach(async name => await buildSingle(name))
 }
 
 buildLib()
