@@ -1,5 +1,5 @@
-@use './button-config.scss';
-@import './button-base.scss';
+@use "./button-config.scss";
+@use "./button-base.scss" as *;
 
 .ni-button {
   @include button-base;

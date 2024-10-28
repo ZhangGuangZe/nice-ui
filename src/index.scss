@@ -1,5 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@use "tailwindcss/base";
+@use "tailwindcss/components";
+@use "tailwindcss/utilities";
 
-@import "./components/button/style/button.scss";
+@use "./components/button/style/button.scss";
+// @import "./components//tabs/style//tabs.scss";

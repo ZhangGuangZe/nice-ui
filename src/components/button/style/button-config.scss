@@ -1,5 +1,5 @@
 // 所有不同type按钮自定义样式
-@import '../../../style/variable.scss';
+@use "../../../style/variable.scss" as *;
 
 // 按钮类型的配置
 $type: (
