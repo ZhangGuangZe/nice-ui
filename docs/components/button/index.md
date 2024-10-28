@@ -1,7 +1,10 @@
 # Button 组件
 
 ## 基础用法
-:::demo 使用 `type` 属性来定义按钮的样式。
+
+使用 `type` 属性来定义按钮的样式。
+
+:::demo
 ```vue
 <template>
   <ni-button>默认按钮</ni-button>&nbsp;
@@ -13,7 +16,10 @@
 :::
 
 ## 禁用状态
-:::demo 使用 `disabled` 属性来定义按钮是否禁用。
+
+使用 `disabled` 属性来定义按钮是否禁用。
+
+:::demo
 ```vue
 <template>
   <ni-button disabled>默认按钮</ni-button>&nbsp;
@@ -25,7 +31,10 @@
 :::
 
 ## 尺寸
-:::demo 使用 `size` 属性来定义按钮的尺寸。
+
+使用 `size` 属性来定义按钮的尺寸。
+
+:::demo
 ```vue
 <template>
   <ni-button type="primary" size="small">小按钮</ni-button>&nbsp;
@@ -36,7 +45,10 @@
 :::
 
 ## 块级按钮
-:::demo 使用 `block` 属性来定义按钮是否为块级元素。
+
+使用 `block` 属性来定义按钮是否为块级元素。
+
+:::demo
 ```vue
 <template>
   <ni-button type="primary" block>块级按钮</ni-button>
