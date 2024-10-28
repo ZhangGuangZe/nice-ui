@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import demoBlockPlugin from 'vitepress-theme-demoblock'
+import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,8 +16,12 @@ export default defineConfig({
       '/': [
         { text: '快速开始', link: '/', items: [] },
         {
-          text: '通用',
+          text: 'Basic 基础组件',
           items: [{ text: 'Button 按钮', link: '/components/button/' }]
+        },
+        {
+          text: 'Data 数据组件',
+          items: [{ text: 'Tree 树形控件', link: '/components/tree/' }]
         },
       ]
     },
@@ -28,7 +32,10 @@ export default defineConfig({
   },
   markdown: {
     config: (md) => {
-      md.use(demoBlockPlugin)
+      md.use(demoblockPlugin)
     }
+  },
+  vite: {
+    plugins: [demoblockVitePlugin()]
   }
 })
