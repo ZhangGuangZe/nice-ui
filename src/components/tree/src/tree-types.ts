@@ -24,6 +24,11 @@ export const treeProps = {
   data: {
     type: Object as PropType<Array<TreeNode>>,
     required: true
+  },
+  // 是否显示连接线
+  showLine: {
+    type: Boolean,
+    default: false
   }
 } as const
 

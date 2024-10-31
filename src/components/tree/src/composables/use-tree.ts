@@ -3,21 +3,21 @@ import { generateInnerTreeData } from '../utils'
 import { InnerTreeNode, TreeNode } from '../tree-types'
 
 export function useTree(data: Ref<TreeNode[]> | TreeNode[]) {
-  const flattenTree = ref(generateInnerTreeData(unref(data)))
+  const flattenTreeData = ref(generateInnerTreeData(unref(data)))
 
   const toggleExpand = (node: InnerTreeNode) => {
-    /* const currNode = flattenTree.value.find(item => item.id === node.id)
+    /* const currNode = flattenTreeData.value.find(item => item.id === node.id)
     if (currNode) {
       currNode.expanded = !currNode.expanded
     } */
     node.expanded = !node.expanded
   }
 
-  const treeData = computed(() => {
+  const expandedTreeData = computed(() => {
     let excludeNodes: InnerTreeNode[] = []
     const result = []
 
-    for (const node of flattenTree.value) {
+    for (const node of flattenTreeData.value) {
       if (excludeNodes.includes(node)) continue
 
       if (node.expanded !== true) {
@@ -32,23 +32,46 @@ export function useTree(data: Ref<TreeNode[]> | TreeNode[]) {
   const getChildren = (node: InnerTreeNode) => {
     const result = []
 
-    const startIndex = flattenTree.value.findIndex(item => item.id === node.id)
+    const startIndex = flattenTreeData.value.findIndex(
+      item => item.id === node.id
+    )
 
     for (
       let i = startIndex + 1;
-      i < flattenTree.value.length && flattenTree.value[i].level > node.level;
+      i < flattenTreeData.value.length &&
+      flattenTreeData.value[i].level > node.level;
       i++
     ) {
-      result.push(flattenTree.value[i])
+      result.push(flattenTreeData.value[i])
+    }
+
+    return result
+  }
+
+  const getChildrenExpanded = (node: InnerTreeNode) => {
+    const result: InnerTreeNode[] = []
+
+    const startIndex = expandedTreeData.value.findIndex(
+      item => item.id === node.id
+    )
+
+    for (
+      let i = startIndex + 1;
+      i < expandedTreeData.value.length &&
+      expandedTreeData.value[i].level > node.level;
+      i++
+    ) {
+      result.push(expandedTreeData.value[i])
     }
 
     return result
   }
 
   return {
-    flattenTree,
-    treeData,
+    flattenTreeData,
+    expandedTreeData,
     toggleExpand,
-    getChildren
+    getChildren,
+    getChildrenExpanded
   }
 }

@@ -2,22 +2,40 @@ import { defineComponent, toRefs } from 'vue'
 import { treeProps, TreeProps } from './tree-types'
 import { useTree } from './composables/use-tree'
 
+const NODE_INDENT = 24
+const NODE_HEIGHT = 32
+
 export default defineComponent({
   name: 'NiTree',
   props: treeProps,
   setup(props: TreeProps) {
-    const { data } = toRefs(props)
-    const { treeData, toggleExpand } = useTree(data)
+    const { data, showLine } = toRefs(props)
+    const { expandedTreeData, toggleExpand, getChildrenExpanded } =
+      useTree(data)
 
     return () => (
       <div class="ni-tree">
-        {treeData.value.map(treeNode => {
+        {expandedTreeData.value.map(treeNode => {
           const { label, isLeaf, level, expanded } = treeNode
           return (
             <div
-              class="ni-tree-node"
-              style={{ paddingLeft: `${(level - 1) * 24}px` }}
+              class="ni-tree-node hover:bg-slate-50 relative leading-8"
+              style={{ paddingLeft: `${(level - 1) * NODE_INDENT}px` }}
             >
+              {/* 连接线 */}
+              {!isLeaf && expanded && showLine.value && (
+                <span
+                  class="absolute w-px bg-slate-300"
+                  style={{
+                    height: `${
+                      NODE_HEIGHT * getChildrenExpanded(treeNode).length
+                    }px`,
+                    left: `${NODE_INDENT * (level - 1) + 8}px`,
+                    top: `${NODE_HEIGHT}px`
+                  }}
+                ></span>
+              )}
+              {/* 折叠图标 */}
               {isLeaf ? (
                 <span style={{ display: 'inline-block', width: '18px' }}></span>
               ) : (
