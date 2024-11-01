@@ -9,9 +9,13 @@ export default defineComponent({
   name: 'NiTree',
   props: treeProps,
   setup(props: TreeProps) {
-    const { data, showLine } = toRefs(props)
-    const { expandedTreeData, toggleExpand, getChildrenExpanded } =
-      useTree(data)
+    const { data, showLine, checkable } = toRefs(props)
+    const {
+      expandedTreeData,
+      toggleExpand,
+      getChildrenExpanded,
+      toggleCheckNode
+    } = useTree(data)
 
     return () => (
       <div class="ni-tree">
@@ -19,7 +23,7 @@ export default defineComponent({
           const { label, isLeaf, level, expanded } = treeNode
           return (
             <div
-              class="ni-tree-node hover:bg-slate-50 relative leading-8"
+              class="ni-tree-node hover:bg-slate-50 relative leading-8 flex items-center"
               style={{ paddingLeft: `${(level - 1) * NODE_INDENT}px` }}
             >
               {/* 连接线 */}
@@ -56,6 +60,15 @@ export default defineComponent({
                     d="M384 192v640l384-320.064z"
                   ></path>
                 </svg>
+              )}
+              {/* 复选框 */}
+              {checkable.value && (
+                <input
+                  type="checkbox"
+                  v-model={treeNode.checked}
+                  class="mr-1"
+                  onClick={() => toggleCheckNode(treeNode)}
+                />
               )}
               {label}
             </div>

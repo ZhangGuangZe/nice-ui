@@ -29,6 +29,10 @@ export const treeProps = {
   showLine: {
     type: Boolean,
     default: false
+  },
+  checkable: {
+    type: Boolean,
+    default: false
   }
 } as const
 

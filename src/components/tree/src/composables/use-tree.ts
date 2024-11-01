@@ -29,7 +29,7 @@ export function useTree(data: Ref<TreeNode[]> | TreeNode[]) {
     return result
   })
 
-  const getChildren = (node: InnerTreeNode) => {
+  const getChildren = (node: InnerTreeNode, recursive = true) => {
     const result = []
 
     const startIndex = flattenTreeData.value.findIndex(
@@ -42,7 +42,11 @@ export function useTree(data: Ref<TreeNode[]> | TreeNode[]) {
       flattenTreeData.value[i].level > node.level;
       i++
     ) {
-      result.push(flattenTreeData.value[i])
+      if (recursive) {
+        result.push(flattenTreeData.value[i])
+      } else if (flattenTreeData.value[i].level === node.level + 1) {
+        result.push(flattenTreeData.value[i])
+      }
     }
 
     return result
@@ -67,11 +71,38 @@ export function useTree(data: Ref<TreeNode[]> | TreeNode[]) {
     return result
   }
 
+  const setChecked = (node: InnerTreeNode) => {
+    const parentNode = flattenTreeData.value.find(
+      item => item.id === node.parentId
+    )
+
+    if (!parentNode) return
+
+    const siblingNodes = getChildren(parentNode, false)
+    const checkedSiblingNodes = siblingNodes.filter(item => item.checked)
+    parentNode.checked = siblingNodes.length === checkedSiblingNodes.length
+
+    if (parentNode.parentId) setChecked(parentNode)
+  }
+
+  const toggleCheckNode = (node: InnerTreeNode) => {
+    // 全选
+    node.checked = !node.checked
+
+    getChildren(node).forEach(child => {
+      child.checked = node.checked
+    })
+
+    // 反选
+    setChecked(node)
+  }
+
   return {
     flattenTreeData,
     expandedTreeData,
     toggleExpand,
     getChildren,
-    getChildrenExpanded
+    getChildrenExpanded,
+    toggleCheckNode
   }
 }
